@@ -195,3 +195,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CACHE_BIG_TIMEOUT = 300
+CACHE_MID_TIMEOUT = 120
+CACHE_SMALL_TIMEOUT = 60
+CACHE_TINY_TIMEOUT = 10
