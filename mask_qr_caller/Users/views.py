@@ -15,7 +15,6 @@ from Users.utils import get_redis_con
 from django.conf import settings
 import random
 
-# Create your views here.
 
 def sign_up(request):
     try:
@@ -35,7 +34,7 @@ def sign_up(request):
                 mobile_number=phone,
                 password=password,
                 display_name=display_name,
-                qr_uuid = str(uuid.uuid4())
+                qr_uuid=str(uuid.uuid4())
             )
             user.save()
             user_dict = model_to_dict(user)
@@ -44,9 +43,9 @@ def sign_up(request):
         return JsonResponse({"message": "User already exists!"}, status=400)
     except Exception as e:
         print(traceback.format_exc())
-        return JsonResponse({"message": "Something went worng please try again", "error": str(e)}, status=400)        
+        return JsonResponse({"message": "Something went worng please try again", "error": str(e)}, status=400)
     return JsonResponse({"message": "Method not allowed!"}, status=405)
-    #return HttpResponse('<a href="tel:+496170961709">Click to call</a>')
+    # return HttpResponse('<a href="tel:+496170961709">Click to call</a>')
 
 
 # On QR code scan
@@ -60,8 +59,6 @@ def scanner_view(request):
                 return JsonResponse({"error": "No mapping found"}, status=400)
             return JsonResponse(output)
     except:
-        import traceback
-        print(traceback.format_exc())
         return JsonResponse({"message": "Something went wrong"}, status=400)
     return JsonResponse({"message": "Method not allowed"}, status=405)
 
@@ -72,7 +69,7 @@ def create_scan(uuid):
     if uuid:
         fetch_mask_number(uuid, number_details_dict, cache)
         if number_details_dict['mask_number'] and str(number_details_dict['mask_number']) != '0':
-            digit_gen = f'{random.randrange(1, 10**10):03}'
+            digit_gen = f'{random.randrange(1, 10 ** 10):03}'
             cache.hset(digit_gen, number_details_dict['mask_number'], number_details_dict['customer_number'])
             cache.expire(digit_gen, settings.CACHE_MID_TIMEOUT)
             output = "{},{}".format(number_details_dict['mask_number'], digit_gen)
@@ -102,7 +99,8 @@ def fetch_mask_number(uuid, number_details_dict, cache=None):
 def fetch_number_db(uuid, cache=None):
     if not cache:
         cache = get_redis_con()
-    number_list = UserNumberMapping.objects.filter(user__qr_uuid=uuid).select_related("user", "cli").values_list("user__mobile_number", "cli__cli", "user__display_name")
+    number_list = UserNumberMapping.objects.filter(user__qr_uuid=uuid).select_related("user", "cli").values_list(
+        "user__mobile_number", "cli__cli", "user__display_name")
     if number_list:
         temp_dict = {}
         for customer_number, mask_number, display_name in number_list:
@@ -139,9 +137,9 @@ def caller_view(request):
 class ProfileView(APIView):
     authentication_class = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+
     def get(self, request):
         user = request.user
         user_dict = model_to_dict(user)
         del user_dict["password"]
         return Response({"data": user_dict})
-
