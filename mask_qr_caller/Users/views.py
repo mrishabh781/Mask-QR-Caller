@@ -58,7 +58,7 @@ def scanner_view(request):
             output = create_scan(uuid_param)
             if not output:
                 return JsonResponse({"error": "No mapping found"}, status=400)
-            return JsonResponse({"data": str(output)})
+            return JsonResponse(output)
     except:
         import traceback
         print(traceback.format_exc())
@@ -68,7 +68,7 @@ def scanner_view(request):
 
 def create_scan(uuid):
     cache = get_redis_con()
-    number_details_dict = {'mask_number': None, 'customer_number': None}
+    number_details_dict = {'mask_number': None, 'customer_number': None, 'display_name': None}
     if uuid:
         fetch_mask_number(uuid, number_details_dict, cache)
         if number_details_dict['mask_number'] and str(number_details_dict['mask_number']) != '0':
@@ -76,7 +76,10 @@ def create_scan(uuid):
             cache.hset(digit_gen, number_details_dict['mask_number'], number_details_dict['customer_number'])
             cache.expire(digit_gen, settings.CACHE_MID_TIMEOUT)
             output = "{},{}".format(number_details_dict['mask_number'], digit_gen)
-            return output
+            temp_return = dict()
+            temp_return['data'] = output
+            temp_return['display_name'] = number_details_dict['display_name']
+            return temp_return
     return None
 
 
@@ -93,20 +96,21 @@ def fetch_mask_number(uuid, number_details_dict, cache=None):
     temp_data_list = temp_data.decode().split(':')
     number_details_dict['mask_number'] = str(temp_data_list[0])
     number_details_dict['customer_number'] = str(temp_data_list[1])
+    number_details_dict['display_name'] = str(temp_data_list[2])
 
 
 def fetch_number_db(uuid, cache=None):
     if not cache:
         cache = get_redis_con()
-    number_list = UserNumberMapping.objects.filter(user__qr_uuid=uuid).select_related("user", "cli").values_list("user__mobile_number", "cli__cli")
+    number_list = UserNumberMapping.objects.filter(user__qr_uuid=uuid).select_related("user", "cli").values_list("user__mobile_number", "cli__cli", "user__display_name")
     if number_list:
         temp_dict = {}
-        for customer_number, mask_number in number_list:
-            temp_dict["{}:{}".format(mask_number, customer_number)] = 1
+        for customer_number, mask_number, display_name in number_list:
+            temp_dict["{}:{}:{}".format(mask_number, customer_number, display_name)] = 1
         cache.hmset('{}:mask_number'.format(uuid), temp_dict)
         cache.expire('{}:mask_number'.format(uuid), settings.CACHE_BIG_TIMEOUT)
     else:
-        cache.hset('{}:mask_number'.format(uuid), "0", "0")
+        cache.hset('{}:mask_number'.format(uuid), "0:0:0", "1")
         cache.expire('{}:mask_number'.format(uuid), settings.CACHE_MID_TIMEOUT)
 
 
