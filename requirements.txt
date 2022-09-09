@@ -7,3 +7,4 @@ djangorestframework_simplejwt==4.7.1
 django-rest-framework==0.1.0
 djangorestframework
 django-cors-headers
+redis

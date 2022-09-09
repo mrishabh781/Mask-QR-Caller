@@ -11,7 +11,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.utils import IntegrityError
-
+from Users.utils import get_redis_con
 
 # Create your views here.
 
