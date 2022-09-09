@@ -23,7 +23,7 @@ const CustomizedSnackbars = () => {
     <div className={classes.root}>
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={30000}
+        autoHideDuration={4000}
         onClose={handleClose}
         anchorOrigin={isMobile ? { vertical: 'top', horizontal: 'center' } : { vertical: 'top', horizontal: 'right' }}
         sx={{ top: { xs: 100, sm: 100, lg: 100 } }}

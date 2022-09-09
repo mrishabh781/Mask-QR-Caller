@@ -1,4 +1,8 @@
+import { useDispatch } from "react-redux"
+import { setSnackbar } from "../slices/snackbarSlice";
+
 export default function FormExtra(){
+  const dispatch = useDispatch();
     return(
         <div className="flex items-center justify-between ">
         <div className="flex items-center">
@@ -14,7 +18,7 @@ export default function FormExtra(){
         </div>
 
         <div className="text-sm">
-          <a href="#" className="font-medium text-purple-600 hover:text-purple-500">
+          <a href="#" className="font-medium text-purple-600 hover:text-purple-500" onClick={() => dispatch(setSnackbar(true, "warning", "Reset Password mail sent successfully !!"))}>
             Forgot your password?
           </a>
         </div>

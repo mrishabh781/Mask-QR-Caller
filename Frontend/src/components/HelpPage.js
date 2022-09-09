@@ -6,27 +6,27 @@ import { useMobileViewport } from '../helpers/mobileViewPort';
 
 const features = [
   {
-    name: 'Competitive exchange rates',
+    name: 'Competitive rates',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'We ensure that best will be delivered, that too in your budget.',
     icon: GlobeAltIcon,
   },
   {
     name: 'No hidden fees',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'We are exception when dealing honestly and openly, we do not have any hidden charges.',
     icon: ScaleIcon,
   },
   {
-    name: 'Transfers are instant',
+    name: 'Responses are instant',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'We usually take 1-2hr to resolve your request, if not then issue would be raised to higher authorities.',
     icon: BoltIcon,
   },
   {
     name: 'Mobile notifications',
     description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+      'For best, we make sure that you are updated with everything through mobile notifications.',
     icon: ChatBubbleBottomCenterTextIcon,
   }
 ]
@@ -34,16 +34,15 @@ const features = [
 export default function HelpPage() {
   const isMobile = useMobileViewport();
   return (
-    <div className={`py-8 relative ${clsx({ 'top-40': isMobile, 'top-0': !isMobile })}`}>
+    <div className={`py-8 relative ${clsx({ 'top-10': isMobile, 'top-0': !isMobile })}`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="lg:text-center">
-          <h2 className="text-lg font-semibold text-indigo-600">QR Mask Caller</h2>
+          <h2 className="text-3xl font-semibold text-indigo-600">Need Help ??</h2>
           <p className="mt-2 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">
-            A better way to reach for help, with privacy intact.
+            We are available 24/7 through our ChatBot, or you can also drop a mail #support@gupshup.io
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-            accusamus quisquam.
+            Our help services are there at your single click. feel free to connect with us anytime. your concerns will be resolved at par.
           </p>
         </div>
 

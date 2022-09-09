@@ -3,11 +3,12 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import AuthService from '../services/auth.service'
 
 const navigation = [
-  { name: 'Home', href: 'home', current: true },
-  { name: 'About', href: 'about', current: false },
-  { name: 'Help', href: 'help', current: false }
+  { name: 'Home', href: '/home', current: true },
+  { name: 'About', href: '/about', current: false },
+  { name: 'Help', href: '/help', current: false }
 ]
 
 function classNames(...classes) {
@@ -99,27 +100,20 @@ export default function Navigation() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/home"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Your Profile
+                            Your QR Masker
                           </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
+                            href="/"
+                            onClick={() => {
+                              AuthService.logout();
+                            }}
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out

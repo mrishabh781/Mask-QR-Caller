@@ -1,13 +1,13 @@
 const loginFields=[
     {
-        labelText:"Email address",
-        labelFor:"email-address",
-        id:"email-address",
+        labelText:"Email Address",
+        labelFor:"email",
+        id:"username",
         name:"email",
         type:"email",
         autoComplete:"email",
         isRequired:true,
-        placeholder:"Email address"   
+        placeholder:"Email Address"   
     },
     {
         labelText:"Password",
@@ -23,24 +23,44 @@ const loginFields=[
 
 const signupFields=[
     {
-        labelText:"Username",
-        labelFor:"username",
-        id:"username",
-        name:"username",
+        labelText:"FirstName",
+        labelFor:"firstName",
+        id:"firstName",
+        name:"firstName",
         type:"text",
-        autoComplete:"username",
+        autoComplete:"firstName",
         isRequired:true,
-        placeholder:"Username"   
+        placeholder:"First Name"   
+    },
+    {
+        labelText:"LastName",
+        labelFor:"lastName",
+        id:"lastName",
+        name:"lastName",
+        type:"text",
+        autoComplete:"lastName",
+        isRequired:true,
+        placeholder:"Last Name"   
     },
     {
         labelText:"Email address",
-        labelFor:"email-address",
-        id:"email-address",
+        labelFor:"email",
+        id:"email",
         name:"email",
         type:"email",
         autoComplete:"email",
         isRequired:true,
-        placeholder:"Email address"   
+        placeholder:"Email Address"   
+    },
+    {
+        labelText:"Phone",
+        labelFor:"phone",
+        id:"phone",
+        name:"phone",
+        type:"phone",
+        autoComplete:"phone",
+        isRequired:true,
+        placeholder:"Phone (eg. +919818598849)"   
     },
     {
         labelText:"Password",
@@ -51,16 +71,6 @@ const signupFields=[
         autoComplete:"current-password",
         isRequired:true,
         placeholder:"Password"   
-    },
-    {
-        labelText:"Confirm Password",
-        labelFor:"confirm-password",
-        id:"confirm-password",
-        name:"confirm-password",
-        type:"password",
-        autoComplete:"confirm-password",
-        isRequired:true,
-        placeholder:"Confirm Password"   
     }
 ]
 

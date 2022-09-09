@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -15,11 +15,21 @@ import AboutPage from './components/AboutPage';
 import HelpPage from './components/HelpPage';
 import ErrorPage from './components/ErrorPage';
 import CustomizedSnackbars from './helpers/Snackbar';
+import AuthService from "./services/auth.service";
+import { useSelector } from 'react-redux';
 
 function App() {
 
-  const isAuthorized = true
+  const [isAuthorized, setisAuthorized] = useState(undefined);
+  const loadingState = useSelector((state) => state.loader.value.home_page == 'loading')
 
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setisAuthorized(user);
+    }
+  }, []);
+  
   return (
     <>
       {isAuthorized && <Navigation />}
@@ -27,17 +37,24 @@ function App() {
       <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         {/* <div className="justify-center flex w-full space-y-8"> */}
           <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/home" element={<HomePage />} />
+            {!loadingState &&
+            <Route path="*" element={<ErrorPage />} />}
             <Route path="/about" element={<AboutPage />} />
             <Route path="/help" element={<HelpPage />} />
-            <Route path="*" element={<ErrorPage />} />
-
+            <Route path="/scanner/:uuid" element={<ScannerPage />} />
             {isAuthorized &&
-              <Route path="/scanner/:uuid" element={<ScannerPage />} />}
+              <>
+              <Route path="/home" element={<HomePage />} />
+              <Route path="/" element={<Navigate replace to="/home" />} />
+              </>
+            }
             {!isAuthorized &&
-              <Route path="/scanner" element={<Navigate replace to="/home" />} />}
+            <>
+              {/* <Route path="/scanner" element={<Navigate replace to="/home" />} /> */}
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />  
+            </>
+            }
           </Routes>
         {/* </div> */}
       </div>

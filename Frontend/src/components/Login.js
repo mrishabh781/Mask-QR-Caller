@@ -4,6 +4,7 @@ import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import AuthService from "../services/auth.service";
 
 const fields=loginFields;
 let fieldsState = {};
@@ -12,7 +13,7 @@ fields.forEach(field=>fieldsState[field.id]='');
 export default function Login({ }){
     const [loginState,setLoginState]=useState(fieldsState);
     const navigate = useNavigate();
-    const location = useLocation()
+    const location = useLocation();
 
     const handleChange=(e)=>{
         setLoginState({...loginState,[e.target.id]:e.target.value})
@@ -24,33 +25,21 @@ export default function Login({ }){
     }
 
     //Handle Login API Integration here
-    const authenticateUser = () =>{
-
-        let loginFields={
-                email:loginState['email-address'],
-                password:loginState['password']
-        };
-
-
-        navigate('/home');
-
-           
-        // const endpoint=`https://api.loginradius.com/identity/v2/auth/login?apikey=${'apiKey'}&apisecret=${'apiSecret'}`;
-        //  fetch(endpoint,
-        //      {
-        //      method:'POST',
-        //      headers: {
-        //      'Content-Type': 'application/json'
-        //      },
-        //      body:JSON.stringify(loginFields)
-        //      }).then(response=>response.json())
-        //      .then(data=>{
-        //         //API Success from LoginRadius Login API
-        //      })
-        //      .catch(error=>{ 
-        //         const { from } = location.state || { from: { pathname: "/" } };
-        //         navigate(from);
-        //      })
+    const authenticateUser = async () =>{
+        try {
+            await AuthService.login(loginState).then((response) => {
+                if(response) {
+                navigate("/home");
+                window.location.reload();
+                }
+              },
+              (error) => {
+                console.log(error);
+              }
+            );
+          } catch (err) {
+            console.log(err);
+          }
          }
     
 
