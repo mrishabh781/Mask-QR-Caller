@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Users'
+    'rest_framework',
+    'Users',
 ]
 
 AUTH_USER_MODEL = 'Users.CustomUser'
@@ -77,6 +78,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mask_qr_caller.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -99,6 +106,17 @@ DATABASES = {
         'PASSWORD': os.environ.get('DB_PASS'),
     }
 }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'database-1.cbudj12qpzuz.ap-south-1.rds.amazonaws.com',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'supersecretpassword',
+    }
+}
+#database-1.cbudj12qpzuz.ap-south-1.rds.amazonaws.com
 
 print(DATABASES)
 

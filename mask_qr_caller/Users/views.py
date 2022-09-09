@@ -1,10 +1,15 @@
 import json
 import traceback
+import uuid
 from django.shortcuts import render
 from django.http.response import HttpResponse, JsonResponse
 from django.contrib.auth.hashers import check_password, make_password
 from django.forms import model_to_dict
 from Users.models import CustomUser
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -26,7 +31,8 @@ def sign_up(request):
                 email=email,
                 mobile_number=phone,
                 password=password,
-                display_name=display_name
+                display_name=display_name,
+                qr_uuid = str(uuid.uuid4())
             )
             user.save()
             user_dict = model_to_dict(user)
@@ -36,3 +42,13 @@ def sign_up(request):
         return JsonResponse({"message": "Something went worng please try again", "error": str(e)}, status=400)        
     return JsonResponse({"message": "Method not allowed!"}, status=401)
     #return HttpResponse('<a href="tel:+496170961709">Click to call</a>')
+
+
+class ProfileView(APIView):
+    authentication_class = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        user = request.user
+        user_dict = model_to_dict(user)
+        del user_dict["password"]
+        return Response({"data": user_dict})
