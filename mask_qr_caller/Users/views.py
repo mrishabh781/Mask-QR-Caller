@@ -120,7 +120,7 @@ def caller_view(request):
         caller_number = data.get("caller_number")
         digit_gen = data.get("digit_gen")
         cache = get_redis_con()
-        if not digit_gen:
+        if not digit_gen or str(digit_gen) in ['None']:
             # User is calling back
             x = cache.get('{}:{}'.format(mask_number, caller_number))
             if not x:
