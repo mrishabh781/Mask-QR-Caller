@@ -7,7 +7,7 @@ class CustomUser(AbstractUser):
     date_created = models.DateField(null=True, blank=True, auto_now=True)
     mobile_number = models.CharField(max_length=15,null=True, blank=True)
     display_name = models.CharField(max_length=255, null=True, blank=True)
-    qr_uuid = models.CharField(max_length=255, null=True, blank=True)
+    qr_uuid = models.CharField(max_length=255, null=True, blank=True, db_index=True)
     scan_count = models.IntegerField(default=0)
     called_count = models.IntegerField(default=0)
 
