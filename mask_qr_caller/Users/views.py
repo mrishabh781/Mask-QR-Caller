@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponse, JsonResponse
 from django.contrib.auth.hashers import check_password, make_password
 from django.forms import model_to_dict
-from Users.models import CustomUser, UserNumberMapping
+from Users.models import CustomUser, MaskNumber, UserNumberMapping
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.views import APIView
@@ -38,6 +38,9 @@ def sign_up(request):
             )
             user.save()
             user_dict = model_to_dict(user)
+            number = MaskNumber.objects.order_by('?').first()
+            num_mapping = UserNumberMapping(user=user, cli=number)
+            num_mapping.save()
             return JsonResponse({"message": "User created successfully!"})
     except IntegrityError:
         return JsonResponse({"message": "User already exists!"}, status=400)
