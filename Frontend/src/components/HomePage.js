@@ -117,7 +117,7 @@ export default function HomePage({ }) {
                                         Hi, {capitalizeFirstLetter(userData.first_name + " " + userData.last_name)}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                       Don't worry !! We keep you details private, your privacy is our atmost priority.
+                                       Don't worry !! We keep your details private, your privacy is our atmost priority.
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
