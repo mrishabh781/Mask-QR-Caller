@@ -101,7 +101,7 @@ REST_FRAMEWORK = {
 
 
 
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'HOST': os.environ.get('DB_HOST'),
@@ -109,18 +109,8 @@ REST_FRAMEWORK = {
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
     }
-}'''
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'database-1.cbudj12qpzuz.ap-south-1.rds.amazonaws.com',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'supersecretpassword',
-    }
 }
-#database-1.cbudj12qpzuz.ap-south-1.rds.amazonaws.com
+
 
 print(DATABASES)
 
