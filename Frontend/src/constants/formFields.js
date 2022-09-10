@@ -42,6 +42,17 @@ const signupFields=[
         isRequired:true,
         placeholder:"Last Name"   
     },
+    ,
+    {
+        labelText:"Display Name",
+        labelFor:"display_name",
+        id:"display_name",
+        name:"display_name",
+        type:"text",
+        autoComplete:"display_name",
+        isRequired:true,
+        placeholder:"UserName"   
+    },
     {
         labelText:"Email address",
         labelFor:"email",
