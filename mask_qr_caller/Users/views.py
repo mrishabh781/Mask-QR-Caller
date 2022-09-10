@@ -11,7 +11,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.utils import IntegrityError
-from Users.utils import get_redis_con
+from Users.utils import get_redis_con, handle_count
 from django.conf import settings
 import random
 
@@ -54,6 +54,7 @@ def scanner_view(request):
         if request.method == "GET":
             data = request.GET
             uuid_param = data.get("uuid")
+            handle_count(CustomUser.objects.filter(qr_uuid=uuid_param).first(), "scanned")
             output = create_scan(uuid_param)
             if not output:
                 return JsonResponse({"error": "No mapping found"}, status=400)
@@ -130,6 +131,7 @@ def caller_view(request):
             x = cache.hget(digit_gen, mask_number)
             if x:
                 cache.setex('{}:{}'.format(mask_number, x.decode()), settings.CACHE_BIG_TIMEOUT, caller_number)
+                handle_count(CustomUser.objects.filter(mobile_number=x.decode()).first(), "called")
                 return JsonResponse({"data": x.decode()})
         return JsonResponse({"error": "error while fetching data"}, status=400)
 
