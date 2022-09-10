@@ -5,12 +5,15 @@ import FormExtra from "./FormExtra";
 import Input from "./Input";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import AuthService from "../services/auth.service";
+import { useDispatch } from 'react-redux';
+import { setSnackbar } from '../slices/snackbarSlice';
 
 const fields=loginFields;
 let fieldsState = {};
 fields.forEach(field=>fieldsState[field.id]='');
 
 export default function Login({ }){
+    const dispatch = useDispatch();
     const [loginState,setLoginState]=useState(fieldsState);
     const navigate = useNavigate();
     const location = useLocation();
@@ -34,9 +37,12 @@ export default function Login({ }){
                 }
               },
               (error) => {
+                dispatch(setSnackbar(true, "error", `Please Enter Valid Credentials.`))
                 console.log(error);
               }
-            );
+            ).catch(err => { 
+                dispatch(setSnackbar(true, "error", `${err?.response?.data?.detail}`))
+             });
           } catch (err) {
             console.log(err);
           }
