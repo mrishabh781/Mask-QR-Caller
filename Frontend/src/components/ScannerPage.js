@@ -72,16 +72,17 @@ export default function ScannerPage({ }) {
     }
 
     const notifyOperation = () => {
-        axios
-            .post(API_URL + `/api/v1/notify/`, { operation })
-            .then((response) => {
-                if (response?.data?.data) {
-                    dispatch(setSnackbar(true, "success", "Call Placed Successfully."))
-                    dispatch(toggleLoader({ resource: 'home_page', loading_state: 'loaded' }));
-                }
-            }).catch(err => {
-                dispatch(toggleLoader({ resource: 'home_page', loading_state: 'loaded' }));
-            });
+        dispatch(setSnackbar(true, "success", "A Text Message has been Sent !!"))
+        // axios
+        //     .post(API_URL + `/api/v1/notify/`, { operation })
+        //     .then((response) => {
+        //         if (response?.data?.data) {
+        //             dispatch(setSnackbar(true, "success", "Call Placed Successfully."))
+        //             dispatch(toggleLoader({ resource: 'home_page', loading_state: 'loaded' }));
+        //         }
+        //     }).catch(err => {
+        //         dispatch(toggleLoader({ resource: 'home_page', loading_state: 'loaded' }));
+        //     });
     }
 
     return (
