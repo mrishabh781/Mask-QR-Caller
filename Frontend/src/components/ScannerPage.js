@@ -44,7 +44,7 @@ export default function ScannerPage({ }) {
                     if (response?.data?.data) {
                         setOperation(response?.data?.data)
                         setUserData(response?.data?.display_name)
-                        setQrValue(window.location.origin + '/scanner/' + response?.data?.data)
+                        setQrValue(window.location.pathname?.split('/')[2])
                         dispatch(toggleLoader({ resource: 'home_page', loading_state: 'loaded' }));
                     }
                 }).catch(err => {
@@ -113,7 +113,7 @@ export default function ScannerPage({ }) {
                                     Contact : {capitalizeFirstLetter(userData)}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
-                                    Download this QR Code for future reference, Also to be contacted in emergency scenarios.
+                                    Keep this QR Code for future reference, Also to be contacted in emergency scenarios.
                                 </Typography>
                             </CardContent>
                         </CardActionArea>

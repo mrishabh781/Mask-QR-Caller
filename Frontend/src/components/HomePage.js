@@ -117,7 +117,7 @@ export default function HomePage({ }) {
                                         Hi, {capitalizeFirstLetter(userData.first_name + " " + userData.last_name)}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        Download this QR Code for future reference, Also to be contacted in emergency scenarios.
+                                       Don't worry !! We keep you details private, your privacy is our atmost priority.
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -131,7 +131,7 @@ export default function HomePage({ }) {
                                     spacing={{ xs: 2, sm: 2, md: 4 }}
                                 >
                                     <Item elevation={4} sx={{ backgroundColor: '#ff3964', color: 'white' }}>Total Called : {userData?.called_count}</Item>
-                                    <Item elevation={4} sx={{ backgroundColor: '#ff3964', color: 'white' }}>Total Scan Count : {userData?.scan_count}</Item>
+                                    <Item elevation={4} sx={{ backgroundColor: '#ff3964', color: 'white' }}>Total Scanned : {userData?.scan_count}</Item>
                                 </Stack>
                             </div>
                             <Divider></Divider>
